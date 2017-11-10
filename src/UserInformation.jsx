@@ -1,8 +1,10 @@
 import React from 'react';
 
-const UserInformation = props => (
+const UserInformation = ({ user }) => (
   <div>
-    Display the user information here
+    <img src={user.avatar_url} width={100} />
+    <h3>{user.login}</h3>
+    <p>{user.bio}</p>
   </div>
 );
 
