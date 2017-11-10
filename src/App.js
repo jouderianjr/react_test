@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
+      repos: {},
       isLoading: false,
       isFetched: false,
       hasError: false
@@ -18,16 +19,25 @@ class App extends Component {
   }
 
   getUserInformation() {
+    const user = 'jouderianjr';
+    const { fetchUser, fetchRepos } = github;
+
     this.setState({ isLoading: true });
 
-    github
-      .fetchUser('jouderianjr')
-      .then(user => this.setState({ user, isLoading: false, isFetched: true }))
+    Promise.all([fetchUser(user), fetchRepos(user)])
+      .then(resp =>
+        this.setState({
+          user: resp[0],
+          repos: resp[1],
+          isLoading: false,
+          isFetched: true
+        })
+      )
       .catch(err => this.setState({ hasError: true, isLoading: false }));
   }
 
   render() {
-    const { user, isLoading, isFetched, hasError } = this.state;
+    const { user, isLoading, isFetched, hasError, repos } = this.state;
 
     return (
       <div className="App">
@@ -44,7 +54,7 @@ class App extends Component {
             {hasError && <p>Error, try again!</p>}
           </div>
         )}
-        {isFetched && <UserInformation user={user} />}
+        {isFetched && <UserInformation user={user} repos={repos} />}
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
+import RepositoryList from './RepositoryList';
 
-const UserInformation = ({ user }) => {
+const UserInformation = ({ user, repos }) => {
   const { avatar_url, login, html_url, bio } = user;
   return (
     <div>
@@ -9,6 +10,7 @@ const UserInformation = ({ user }) => {
         <h3>@{login}</h3>
       </a>
       <p>{bio}</p>
+      <RepositoryList repos={repos} />
     </div>
   );
 };
