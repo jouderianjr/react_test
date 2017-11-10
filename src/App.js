@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import UserInformation from './UserInformation';
+import { UserInformation } from './components';
 import { github } from './api';
 
 class App extends Component {
